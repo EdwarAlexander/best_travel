@@ -36,4 +36,8 @@ public class ReservationEntity {
     @JoinColumn(name = "tour_id", nullable = true)
     private TourEntity tour;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private CustomerEntity customer;
+
 }

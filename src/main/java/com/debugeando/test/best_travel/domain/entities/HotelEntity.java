@@ -28,6 +28,8 @@ public class HotelEntity {
 
     private BigDecimal price;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,

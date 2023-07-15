@@ -1,10 +1,7 @@
 package com.debugeando.test.best_travel.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -19,6 +16,8 @@ public class TourEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "tour",
             cascade = CascadeType.ALL,
@@ -26,6 +25,8 @@ public class TourEntity {
             fetch = FetchType.LAZY)
     private Set<ReservationEntity> reservations;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(
             mappedBy = "tour",
             cascade = CascadeType.ALL,
