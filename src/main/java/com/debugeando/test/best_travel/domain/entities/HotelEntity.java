@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity(name = "hotel")
 @NoArgsConstructor
@@ -26,4 +27,12 @@ public class HotelEntity {
     private Integer rating;
 
     private BigDecimal price;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true,
+            mappedBy = "hotel"
+    )
+    private Set<ReservationEntity> reservations;
 }

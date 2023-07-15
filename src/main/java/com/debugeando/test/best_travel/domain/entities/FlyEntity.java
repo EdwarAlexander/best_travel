@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity(name = "fly")
 @NoArgsConstructor
@@ -31,6 +32,13 @@ public class FlyEntity {
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private AeroLine aeroLine;
+
+    @OneToMany(
+            mappedBy = "fly",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<TicketEntity>  tickets;
 
 
 }

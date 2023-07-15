@@ -1,8 +1,6 @@
 package com.debugeando.test.best_travel.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +27,13 @@ public class ReservationEntity {
     private LocalDate dateEnd;
     private Integer totalDays;
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private HotelEntity hotel;
+
+    @ManyToOne
+    @JoinColumn(name = "tour_id", nullable = true)
+    private TourEntity tour;
 
 }
