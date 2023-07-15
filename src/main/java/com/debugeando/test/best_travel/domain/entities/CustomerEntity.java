@@ -35,7 +35,7 @@ public class CustomerEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true,
             mappedBy = "customer"
     )
@@ -45,7 +45,7 @@ public class CustomerEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true,
             mappedBy = "customer"
     )
@@ -55,7 +55,7 @@ public class CustomerEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             orphanRemoval = true,
             mappedBy = "customer"
     )

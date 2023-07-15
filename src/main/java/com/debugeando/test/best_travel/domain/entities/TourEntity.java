@@ -22,7 +22,7 @@ public class TourEntity {
             mappedBy = "tour",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private Set<ReservationEntity> reservations;
 
     @ToString.Exclude
@@ -31,7 +31,7 @@ public class TourEntity {
             mappedBy = "tour",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private Set<TicketEntity> tickets;
 
     @ManyToOne

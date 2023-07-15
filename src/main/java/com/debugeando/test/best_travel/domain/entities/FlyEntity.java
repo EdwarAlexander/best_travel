@@ -36,7 +36,7 @@ public class FlyEntity {
             mappedBy = "fly",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private Set<TicketEntity>  tickets;
 
 
