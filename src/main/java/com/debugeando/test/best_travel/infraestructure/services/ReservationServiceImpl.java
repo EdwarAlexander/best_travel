@@ -8,6 +8,7 @@ import com.debugeando.test.best_travel.domain.repositories.CustomerRepository;
 import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
 import com.debugeando.test.best_travel.domain.repositories.ReservationRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IReservationService;
+import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class ReservationServiceImpl implements IReservationService {
     private final HotelRepository hotelRepository;
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
+
+    private final CustomerHelper customerHelper;
     @Override
     public ReservationResponse create(ReservationRequest request) {
         var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow();
@@ -42,6 +45,7 @@ public class ReservationServiceImpl implements IReservationService {
                 .price(hotel.getPrice().add(hotel.getPrice().multiply(this.charger_price_percentage)))
                 .build();
         var reservationPersisted = this.reservationRepository.save(reservationToPersist);
+        this.customerHelper.incrase(customer.getDni(),ReservationServiceImpl.class);
         return this.entityToResponse(reservationPersisted);
     }
 

@@ -8,6 +8,7 @@ import com.debugeando.test.best_travel.domain.repositories.CustomerRepository;
 import com.debugeando.test.best_travel.domain.repositories.FlyRepository;
 import com.debugeando.test.best_travel.domain.repositories.TicketRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.ITicketService;
+import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import com.debugeando.test.best_travel.util.BestTravelUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,8 @@ public class TicketServiceImpl implements ITicketService {
     private final CustomerRepository customerRepository;
     private final TicketRepository ticketRepository;
 
+    private final CustomerHelper customerHelper;
+
     @Override
     @Transactional
     public TicketResponse create(TicketRequest request) {
@@ -45,6 +48,7 @@ public class TicketServiceImpl implements ITicketService {
                                             .build();
          var ticketPersisted = this.ticketRepository.save(ticketToPersist);
          log.info("ticket saved with id: {}",ticketPersisted.getId());
+         this.customerHelper.incrase(customer.getDni(),TicketServiceImpl.class);
         return this.entityToResponse(ticketPersisted);
     }
 

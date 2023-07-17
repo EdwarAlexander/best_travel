@@ -8,6 +8,7 @@ import com.debugeando.test.best_travel.domain.repositories.FlyRepository;
 import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
 import com.debugeando.test.best_travel.domain.repositories.TourRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.ITourService;
+import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.TourHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class TourServiceImpl implements ITourService {
     private final FlyRepository flyRepository;
     private final CustomerRepository customerRepository;
     private final HotelRepository hotelRepository;
+
+    private final CustomerHelper customerHelper;
 
     private final TourHelper tourHelper;
 
@@ -49,12 +52,19 @@ public class TourServiceImpl implements ITourService {
 
     @Override
     public void removeReservation(UUID reservationId, Long tourId) {
-
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
+        tourUpdate.removeReservation(reservationId);
+        this.tourRepository.save(tourUpdate);
     }
 
     @Override
-    public UUID addReservation(Long reservationId, Long tourId) {
-        return null;
+    public UUID addReservation(Long hotelId, Long tourId, Integer totalDay) {
+        var tourUpdate = this.tourRepository.findById(tourId).orElseThrow();
+        var hotel = this.hotelRepository.findById(hotelId).orElseThrow();
+        var reservation = this.tourHelper.createReservation(hotel,tourUpdate.getCustomer(),totalDay);
+        tourUpdate.addReservation(reservation);
+        this.tourRepository.save(tourUpdate);
+        return reservation.getId();
     }
 
     @Override
@@ -70,6 +80,7 @@ public class TourServiceImpl implements ITourService {
                 .customer(customer)
                 .build();
         var tourSaved = this.tourRepository.save(tourToSave);
+        this.customerHelper.incrase(customer.getDni(),TourServiceImpl.class);
         return TourResponse.builder()
                 .id(tourSaved.getId())
                 .reservationIds(tourSaved.getReservations().stream().map(ReservationEntity::getId).collect(Collectors.toSet()))

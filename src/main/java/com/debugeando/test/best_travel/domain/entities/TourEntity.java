@@ -59,6 +59,20 @@ public class TourEntity {
     public void addTicket(TicketEntity ticket){
         if(Objects.isNull(ticket)) this.tickets = new HashSet<>();
         this.tickets.add(ticket);
-        this.tickets.forEach(ticke -> ticke.setTour(this));
+        this.tickets.forEach(t -> t.setTour(this));
+    }
+
+    public void removeReservation(UUID id){
+        this.reservations.forEach(reservation -> {
+            if(reservation.getId().equals(id)){
+                reservation.setTour(null);
+            }
+        });
+    }
+
+    public void addReservation(ReservationEntity reservation){
+        if(Objects.isNull(reservation)) this.reservations = new HashSet<>();
+        this.reservations.add(reservation);
+        this.reservations.forEach(r -> r.setTour(this));
     }
 }
