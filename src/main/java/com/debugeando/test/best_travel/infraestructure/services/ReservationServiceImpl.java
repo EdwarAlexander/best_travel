@@ -79,5 +79,5 @@ public class ReservationServiceImpl implements IReservationService {
         response.setHotel(hotelResponse);
         return response;
     }
-    private static final BigDecimal charger_price_percentage = BigDecimal.valueOf(0.20);
+    public static final BigDecimal charger_price_percentage = BigDecimal.valueOf(0.20);
 }

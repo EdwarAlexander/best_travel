@@ -39,7 +39,9 @@ public class HotelController {
     }
 
     @GetMapping(path = "rating")
-    public ResponseEntity<Set<HotelResponse>> get(@RequestParam Integer rating){
+    public ResponseEntity<Set<HotelResponse>> getByRating(@RequestParam Integer rating){
+        if(rating>4) rating = 4;
+        if(rating<0) rating = 1;
         var response = this.hotelService.findByRatingGreaterThan(rating);
         return response.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(response);
     }
