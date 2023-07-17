@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @Builder
 public class TourRequest {
-    public Serializable customerId;
+    public String customerId;
     Set<TourFlyRequest> flights;
     Set<TourHotelRequest> hotels;
 }

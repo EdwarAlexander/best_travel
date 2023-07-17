@@ -60,4 +60,17 @@ public class TourHelper {
         });
         return response;
     }
+
+    public TicketEntity createTicket(FlyEntity fly,CustomerEntity customer){
+        var ticketToPersist = TicketEntity.builder()
+                .id(UUID.randomUUID())
+                .fly(fly)
+                .customer(customer)
+                .price(fly.getPrice().add(fly.getPrice().multiply(TicketServiceImpl.charger_price_percentage)))
+                .purchaseDate(LocalDate.now())
+                .arrivalDate(BestTravelUtil.getRandomLatter())
+                .departureDate(BestTravelUtil.getRandomSoon())
+                .build();
+        return this.ticketRepository.save(ticketToPersist);
+    }
 }
