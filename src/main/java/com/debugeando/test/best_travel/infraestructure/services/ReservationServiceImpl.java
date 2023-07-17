@@ -20,13 +20,13 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class ReservationServiceImpl implements IReservationService {
 
     private final HotelRepository hotelRepository;
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
     @Override
-    @Transactional
     public ReservationResponse create(ReservationRequest request) {
         var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow();
         var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow();
@@ -47,17 +47,28 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Override
     public ReservationResponse read(UUID uuid) {
-        return null;
+        var reservation = this.reservationRepository.findById(uuid).orElseThrow();
+        return this.entityToResponse(reservation);
     }
 
     @Override
     public ReservationResponse update(ReservationRequest request, UUID uuid) {
-        return null;
+        var reservationFromDB = this.reservationRepository.findById(uuid).orElseThrow();
+        var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow();
+        reservationFromDB.setHotel(hotel);
+        reservationFromDB.setTotalDays(request.getTotalDays());
+        reservationFromDB.setDateTimeReservation(LocalDateTime.now());
+        reservationFromDB.setDateStart(LocalDate.now());
+        reservationFromDB.setDateEnd(LocalDate.now().plusDays(request.getTotalDays()));
+        reservationFromDB.setPrice(hotel.getPrice());
+        var reservationUpdated = this.reservationRepository.save(reservationFromDB);
+        return this.entityToResponse(reservationUpdated);
     }
 
     @Override
     public void delete(UUID uuid) {
-
+        var reservationDelete = this.reservationRepository.findById(uuid).orElseThrow();
+        this.reservationRepository.delete(reservationDelete);
     }
 
     private ReservationResponse entityToResponse(ReservationEntity entity){
@@ -68,5 +79,5 @@ public class ReservationServiceImpl implements IReservationService {
         response.setHotel(hotelResponse);
         return response;
     }
-    private static final BigDecimal charger_price_percentage = BigDecimal.valueOf(0.25);
+    private static final BigDecimal charger_price_percentage = BigDecimal.valueOf(0.20);
 }
