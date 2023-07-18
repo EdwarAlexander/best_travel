@@ -1,6 +1,6 @@
 package com.debugeando.test.best_travel.domain.entities;
 
-import com.debugeando.test.best_travel.util.AeroLine;
+import com.debugeando.test.best_travel.util.emuns.AeroLine;
 import jakarta.persistence.*;
 import lombok.*;
 

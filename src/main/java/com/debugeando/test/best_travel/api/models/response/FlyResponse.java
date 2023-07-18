@@ -1,9 +1,6 @@
 package com.debugeando.test.best_travel.api.models.response;
 
-import com.debugeando.test.best_travel.util.AeroLine;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.debugeando.test.best_travel.util.emuns.AeroLine;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

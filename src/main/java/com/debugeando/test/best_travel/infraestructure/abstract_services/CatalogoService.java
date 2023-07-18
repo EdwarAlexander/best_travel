@@ -1,6 +1,6 @@
 package com.debugeando.test.best_travel.infraestructure.abstract_services;
 
-import com.debugeando.test.best_travel.util.SortType;
+import com.debugeando.test.best_travel.util.emuns.SortType;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;

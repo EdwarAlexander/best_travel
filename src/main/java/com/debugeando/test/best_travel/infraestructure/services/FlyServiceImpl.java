@@ -4,7 +4,7 @@ import com.debugeando.test.best_travel.api.models.response.FlyResponse;
 import com.debugeando.test.best_travel.domain.entities.FlyEntity;
 import com.debugeando.test.best_travel.domain.repositories.FlyRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IFlyService;
-import com.debugeando.test.best_travel.util.SortType;
+import com.debugeando.test.best_travel.util.emuns.SortType;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

@@ -11,6 +11,7 @@ import com.debugeando.test.best_travel.infraestructure.abstract_services.ITicket
 import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import com.debugeando.test.best_travel.util.BestTravelUtil;
+import com.debugeando.test.best_travel.util.emuns.TablesEnum;
 import com.debugeando.test.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class TicketServiceImpl implements ITicketService {
     public TicketResponse create(TicketRequest request) {
         this.blackListHelper.isInBlackListCustomer(request.getIdClient());
         var fly = this.flyRepository.findById(request.getIdFly()).orElseThrow(IllegalStateException::new);
-        var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow(()-> new IdNotFoundException("customer"));
+        var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow(()-> new IdNotFoundException(TablesEnum.customer.name()));
         var ticketToPersist = TicketEntity.builder()
                                             .id(UUID.randomUUID())
                                             .fly(fly)
@@ -56,14 +57,14 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public TicketResponse read(UUID uuid) {
-        var ticketFromDB = this.ticketRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException("ticket"));
+        var ticketFromDB = this.ticketRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException(TablesEnum.ticket.name()));
         return this.entityToResponse(ticketFromDB);
     }
 
     @Override
     public TicketResponse update(TicketRequest request, UUID uuid) {
-        var ticketToUpdate = this.ticketRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException("ticket"));
-        var fly = this.flyRepository.findById(request.getIdFly()).orElseThrow(()->new IdNotFoundException("fly"));
+        var ticketToUpdate = this.ticketRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException(TablesEnum.ticket.name()));
+        var fly = this.flyRepository.findById(request.getIdFly()).orElseThrow(()->new IdNotFoundException(TablesEnum.fly.name()));
         ticketToUpdate.setFly(fly);
         ticketToUpdate.setPrice(fly.getPrice().add(fly.getPrice().multiply(charger_price_percentage)));
         ticketToUpdate.setDepartureDate(BestTravelUtil.getRandomSoon());
@@ -74,7 +75,7 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public void delete(UUID uuid) {
-        var ticketToDelete = this.ticketRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException("ticket"));
+        var ticketToDelete = this.ticketRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException(TablesEnum.ticket.name()));
         this.ticketRepository.delete(ticketToDelete);
     }
 
@@ -89,7 +90,7 @@ public class TicketServiceImpl implements ITicketService {
 
     @Override
     public BigDecimal findPrice(Long idFly) {
-        var fly = this.flyRepository.findById(idFly).orElseThrow(()-> new IdNotFoundException("fly"));
+        var fly = this.flyRepository.findById(idFly).orElseThrow(()-> new IdNotFoundException(TablesEnum.fly.name()));
         return fly.getPrice().add(fly.getPrice().multiply(charger_price_percentage));
     }
 

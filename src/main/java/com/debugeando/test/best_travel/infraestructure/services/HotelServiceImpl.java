@@ -4,7 +4,7 @@ import com.debugeando.test.best_travel.api.models.response.HotelResponse;
 import com.debugeando.test.best_travel.domain.entities.HotelEntity;
 import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IHotelService;
-import com.debugeando.test.best_travel.util.SortType;
+import com.debugeando.test.best_travel.util.emuns.SortType;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;

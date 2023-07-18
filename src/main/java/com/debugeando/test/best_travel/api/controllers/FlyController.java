@@ -2,7 +2,7 @@ package com.debugeando.test.best_travel.api.controllers;
 
 import com.debugeando.test.best_travel.api.models.response.FlyResponse;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IFlyService;
-import com.debugeando.test.best_travel.util.SortType;
+import com.debugeando.test.best_travel.util.emuns.SortType;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
