@@ -8,6 +8,7 @@ import com.debugeando.test.best_travel.domain.repositories.CustomerRepository;
 import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
 import com.debugeando.test.best_travel.domain.repositories.ReservationRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IReservationService;
+import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import com.debugeando.test.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
@@ -28,10 +29,11 @@ public class ReservationServiceImpl implements IReservationService {
     private final HotelRepository hotelRepository;
     private final CustomerRepository customerRepository;
     private final ReservationRepository reservationRepository;
-
     private final CustomerHelper customerHelper;
+    private final BlackListHelper blackListHelper;
     @Override
     public ReservationResponse create(ReservationRequest request) {
+        this.blackListHelper.isInBlackListCustomer(request.getIdClient());
         var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow(()-> new IdNotFoundException("hotel"));
         var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow(()-> new IdNotFoundException("customer"));
 

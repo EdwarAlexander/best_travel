@@ -8,6 +8,7 @@ import com.debugeando.test.best_travel.domain.repositories.CustomerRepository;
 import com.debugeando.test.best_travel.domain.repositories.FlyRepository;
 import com.debugeando.test.best_travel.domain.repositories.TicketRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.ITicketService;
+import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import com.debugeando.test.best_travel.util.BestTravelUtil;
 import com.debugeando.test.best_travel.util.exceptions.IdNotFoundException;
@@ -29,12 +30,13 @@ public class TicketServiceImpl implements ITicketService {
     private final FlyRepository flyRepository;
     private final CustomerRepository customerRepository;
     private final TicketRepository ticketRepository;
-
     private final CustomerHelper customerHelper;
+    private final BlackListHelper blackListHelper;
 
     @Override
     @Transactional
     public TicketResponse create(TicketRequest request) {
+        this.blackListHelper.isInBlackListCustomer(request.getIdClient());
         var fly = this.flyRepository.findById(request.getIdFly()).orElseThrow(IllegalStateException::new);
         var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow(()-> new IdNotFoundException("customer"));
         var ticketToPersist = TicketEntity.builder()

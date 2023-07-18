@@ -8,6 +8,7 @@ import com.debugeando.test.best_travel.domain.repositories.FlyRepository;
 import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
 import com.debugeando.test.best_travel.domain.repositories.TourRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.ITourService;
+import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.TourHelper;
 import com.debugeando.test.best_travel.util.exceptions.IdNotFoundException;
@@ -29,10 +30,9 @@ public class TourServiceImpl implements ITourService {
     private final FlyRepository flyRepository;
     private final CustomerRepository customerRepository;
     private final HotelRepository hotelRepository;
-
     private final CustomerHelper customerHelper;
-
     private final TourHelper tourHelper;
+    private final BlackListHelper blackListHelper;
 
     @Override
     public void removeTicket(UUID ticketId, Long tourId) {
@@ -70,6 +70,7 @@ public class TourServiceImpl implements ITourService {
 
     @Override
     public TourResponse create(TourRequest request) {
+        this.blackListHelper.isInBlackListCustomer(request.getCustomerId());
         var customer = this.customerRepository.findById(request.getCustomerId()).orElseThrow(()->new IdNotFoundException("customer"));
         var flights = new HashSet<FlyEntity>();
         request.getFlights().forEach(fly-> flights.add(this.flyRepository.findById(fly.getId()).orElseThrow(()-> new IdNotFoundException("fly"))));
