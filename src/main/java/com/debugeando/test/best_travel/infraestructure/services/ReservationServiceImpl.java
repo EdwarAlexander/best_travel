@@ -10,6 +10,7 @@ import com.debugeando.test.best_travel.domain.repositories.ReservationRepository
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IReservationService;
 import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
+import com.debugeando.test.best_travel.infraestructure.helpers.EmailHelper;
 import com.debugeando.test.best_travel.util.emuns.TablesEnum;
 import com.debugeando.test.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -32,6 +34,7 @@ public class ReservationServiceImpl implements IReservationService {
     private final ReservationRepository reservationRepository;
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
+    private final EmailHelper emailHelper;
     @Override
     public ReservationResponse create(ReservationRequest request) {
         this.blackListHelper.isInBlackListCustomer(request.getIdClient());
@@ -50,6 +53,7 @@ public class ReservationServiceImpl implements IReservationService {
                 .build();
         var reservationPersisted = this.reservationRepository.save(reservationToPersist);
         this.customerHelper.incrase(customer.getDni(),ReservationServiceImpl.class);
+        //if(Objects.nonNull(request.getEmail())) this.emailHelper.sendMail(request.getEmail(), customer.getFullName(), TablesEnum.reservation.name());
         return this.entityToResponse(reservationPersisted);
     }
 
