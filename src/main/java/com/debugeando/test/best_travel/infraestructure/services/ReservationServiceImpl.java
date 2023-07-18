@@ -9,6 +9,7 @@ import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
 import com.debugeando.test.best_travel.domain.repositories.ReservationRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IReservationService;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
+import com.debugeando.test.best_travel.util.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class ReservationServiceImpl implements IReservationService {
     private final CustomerHelper customerHelper;
     @Override
     public ReservationResponse create(ReservationRequest request) {
-        var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow();
-        var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow();
+        var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow(()-> new IdNotFoundException("hotel"));
+        var customer = this.customerRepository.findById(request.getIdClient()).orElseThrow(()-> new IdNotFoundException("customer"));
 
         var reservationToPersist = ReservationEntity.builder()
                 .id(UUID.randomUUID())
@@ -42,7 +43,7 @@ public class ReservationServiceImpl implements IReservationService {
                 .dateTimeReservation(LocalDateTime.now())
                 .dateStart(LocalDate.now())
                 .dateEnd(LocalDate.now().plusDays(request.getTotalDays()))
-                .price(hotel.getPrice().add(hotel.getPrice().multiply(this.charger_price_percentage)))
+                .price(hotel.getPrice().add(hotel.getPrice().multiply(charger_price_percentage)))
                 .build();
         var reservationPersisted = this.reservationRepository.save(reservationToPersist);
         this.customerHelper.incrase(customer.getDni(),ReservationServiceImpl.class);
@@ -51,14 +52,14 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Override
     public ReservationResponse read(UUID uuid) {
-        var reservation = this.reservationRepository.findById(uuid).orElseThrow();
+        var reservation = this.reservationRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException("reservation"));
         return this.entityToResponse(reservation);
     }
 
     @Override
     public ReservationResponse update(ReservationRequest request, UUID uuid) {
-        var reservationFromDB = this.reservationRepository.findById(uuid).orElseThrow();
-        var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow();
+        var reservationFromDB = this.reservationRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException("reservation"));
+        var hotel = this.hotelRepository.findById(request.getIdHotel()).orElseThrow(()-> new IdNotFoundException("hotel"));
         reservationFromDB.setHotel(hotel);
         reservationFromDB.setTotalDays(request.getTotalDays());
         reservationFromDB.setDateTimeReservation(LocalDateTime.now());
@@ -71,7 +72,7 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Override
     public void delete(UUID uuid) {
-        var reservationDelete = this.reservationRepository.findById(uuid).orElseThrow();
+        var reservationDelete = this.reservationRepository.findById(uuid).orElseThrow(()-> new IdNotFoundException("reservation"));
         this.reservationRepository.delete(reservationDelete);
     }
 
