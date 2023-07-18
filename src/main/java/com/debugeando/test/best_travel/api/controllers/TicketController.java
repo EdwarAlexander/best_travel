@@ -3,6 +3,7 @@ package com.debugeando.test.best_travel.api.controllers;
 import com.debugeando.test.best_travel.api.models.request.TicketRequest;
 import com.debugeando.test.best_travel.api.models.response.TicketResponse;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.ITicketService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "ticket")
 @AllArgsConstructor
+@Tag(name = "Tickets")
 public class TicketController {
 
     private final ITicketService ticketService;
