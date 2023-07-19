@@ -1,8 +1,8 @@
 package com.debugeando.test.best_travel.infraestructure.services;
 
 import com.debugeando.test.best_travel.api.models.response.HotelResponse;
-import com.debugeando.test.best_travel.domain.entities.HotelEntity;
-import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
+import com.debugeando.test.best_travel.domain.entities.jpa.HotelEntity;
+import com.debugeando.test.best_travel.domain.repositories.jpa.HotelRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IHotelService;
 import com.debugeando.test.best_travel.util.constants.CacheConstants;
 import com.debugeando.test.best_travel.util.emuns.SortType;

@@ -2,11 +2,11 @@ package com.debugeando.test.best_travel.infraestructure.services;
 
 import com.debugeando.test.best_travel.api.models.request.TourRequest;
 import com.debugeando.test.best_travel.api.models.response.TourResponse;
-import com.debugeando.test.best_travel.domain.entities.*;
-import com.debugeando.test.best_travel.domain.repositories.CustomerRepository;
-import com.debugeando.test.best_travel.domain.repositories.FlyRepository;
-import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
-import com.debugeando.test.best_travel.domain.repositories.TourRepository;
+import com.debugeando.test.best_travel.domain.entities.jpa.*;
+import com.debugeando.test.best_travel.domain.repositories.jpa.CustomerRepository;
+import com.debugeando.test.best_travel.domain.repositories.jpa.FlyRepository;
+import com.debugeando.test.best_travel.domain.repositories.jpa.HotelRepository;
+import com.debugeando.test.best_travel.domain.repositories.jpa.TourRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.ITourService;
 import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;

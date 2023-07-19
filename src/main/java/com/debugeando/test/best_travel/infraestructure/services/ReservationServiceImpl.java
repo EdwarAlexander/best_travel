@@ -3,10 +3,10 @@ package com.debugeando.test.best_travel.infraestructure.services;
 import com.debugeando.test.best_travel.api.models.request.ReservationRequest;
 import com.debugeando.test.best_travel.api.models.response.HotelResponse;
 import com.debugeando.test.best_travel.api.models.response.ReservationResponse;
-import com.debugeando.test.best_travel.domain.entities.ReservationEntity;
-import com.debugeando.test.best_travel.domain.repositories.CustomerRepository;
-import com.debugeando.test.best_travel.domain.repositories.HotelRepository;
-import com.debugeando.test.best_travel.domain.repositories.ReservationRepository;
+import com.debugeando.test.best_travel.domain.entities.jpa.ReservationEntity;
+import com.debugeando.test.best_travel.domain.repositories.jpa.CustomerRepository;
+import com.debugeando.test.best_travel.domain.repositories.jpa.HotelRepository;
+import com.debugeando.test.best_travel.domain.repositories.jpa.ReservationRepository;
 import com.debugeando.test.best_travel.infraestructure.abstract_services.IReservationService;
 import com.debugeando.test.best_travel.infraestructure.helpers.BlackListHelper;
 import com.debugeando.test.best_travel.infraestructure.helpers.CustomerHelper;
@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service

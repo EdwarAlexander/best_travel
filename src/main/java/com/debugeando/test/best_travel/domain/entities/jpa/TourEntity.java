@@ -1,5 +1,8 @@
-package com.debugeando.test.best_travel.domain.entities;
+package com.debugeando.test.best_travel.domain.entities.jpa;
 
+import com.debugeando.test.best_travel.domain.entities.jpa.CustomerEntity;
+import com.debugeando.test.best_travel.domain.entities.jpa.ReservationEntity;
+import com.debugeando.test.best_travel.domain.entities.jpa.TicketEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

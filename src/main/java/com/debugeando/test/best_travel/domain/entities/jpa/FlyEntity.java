@@ -1,4 +1,4 @@
-package com.debugeando.test.best_travel.domain.entities;
+package com.debugeando.test.best_travel.domain.entities.jpa;
 
 import com.debugeando.test.best_travel.util.emuns.AeroLine;
 import jakarta.persistence.*;

@@ -1,10 +1,9 @@
-package com.debugeando.test.best_travel.domain.repositories;
+package com.debugeando.test.best_travel.domain.repositories.jpa;
 
-import com.debugeando.test.best_travel.domain.entities.FlyEntity;
+import com.debugeando.test.best_travel.domain.entities.jpa.FlyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Set;

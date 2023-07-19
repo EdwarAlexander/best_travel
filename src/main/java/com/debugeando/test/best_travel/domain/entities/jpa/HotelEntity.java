@@ -1,8 +1,7 @@
-package com.debugeando.test.best_travel.domain.entities;
+package com.debugeando.test.best_travel.domain.entities.jpa;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 import java.util.Set;

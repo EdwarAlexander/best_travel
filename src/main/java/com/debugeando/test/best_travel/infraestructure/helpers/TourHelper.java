@@ -1,13 +1,12 @@
 package com.debugeando.test.best_travel.infraestructure.helpers;
 
-import com.debugeando.test.best_travel.domain.entities.*;
-import com.debugeando.test.best_travel.domain.repositories.ReservationRepository;
-import com.debugeando.test.best_travel.domain.repositories.TicketRepository;
+import com.debugeando.test.best_travel.domain.entities.jpa.*;
+import com.debugeando.test.best_travel.domain.repositories.jpa.ReservationRepository;
+import com.debugeando.test.best_travel.domain.repositories.jpa.TicketRepository;
 import com.debugeando.test.best_travel.infraestructure.services.ReservationServiceImpl;
 import com.debugeando.test.best_travel.infraestructure.services.TicketServiceImpl;
 import com.debugeando.test.best_travel.util.BestTravelUtil;
 import lombok.AllArgsConstructor;
-import org.hibernate.annotations.Comments;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
